@@ -3,15 +3,32 @@ var Router = require('react-router');
 var UserProfile = require('./Github/UserProfile');
 var Repos = require('./Github/Repos');
 var Notes = require('./Notes/Notes');
+var ReactFireMixin = require('reactfire');
+var Firebase = require('firebase');
 
 var Profile = React.createClass({
-	mixins: [Router.State],
+	mixins: [Router.State, ReactFireMixin],
 	getInitialState: function(){
 		return {
-			notes: [ 'note1', 'note2' ],
+			notes: [],
 			bio: { name: 'Leanne' },
 			repos: [1,2,3]
 		}
+	},
+	// When the component mounts this callback is called
+	componentDidMount: function(){
+		// Binding between the local state of 'notes' and the 
+		// database endpoint in the firebase database.
+		// When database updates so will the local state of notes
+		// because notes is listening for updates from childRef
+		this.ref = new Firebase('https://leanne1-react-note.firebaseio.com');
+    	var childRef = this.ref.child(this.getParams().username);
+    	this.bindAsArray(childRef, 'notes');
+	},
+	// When the component unmounts this callback is called
+	componentWillUnmount: function(){
+		// Stop listening to database changes when componeent not mounted
+		this.unbind('notes');
 	},
 	render: function(){
 		var username = this.getParams().username;
