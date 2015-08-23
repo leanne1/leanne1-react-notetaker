@@ -8,6 +8,9 @@ Takes several properties:
 * render: what the UI looks like for this component
 
 */	
+// Main is a parent component that structures the whole page
+// It can have nested views that are rendered depending on the url path navigated to
+
 var Main = React.createClass({
 	render: function(){
 		return (
@@ -28,7 +31,7 @@ var Main = React.createClass({
         		<div className="container">
           			<RouteHandler />
     			</div>
-      		</div>
+    		</div>
 		)
 	}
 });
