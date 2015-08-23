@@ -10,7 +10,7 @@ var Profile = React.createClass({
 		return {
 			notes: [ 'note1', 'note2' ],
 			bio: { name: 'Leanne' },
-			repos: []
+			repos: [1,2,3]
 		}
 	},
 	render: function(){
