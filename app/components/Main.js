@@ -1,4 +1,5 @@
 var React = require('react'); // webpack?
+var RouteHandler = require('react-router').RouteHandler;
 
 /* 
 Ceates a React component
@@ -14,12 +15,22 @@ var Main = React.createClass({
 			// but can nest other react components e.g. <Children />
 			// these would have their own render method that would get run
 			// when <Main /> is rendered
-			<div>
-				Hello World
-			</div>
+
+			// RouteHandler view will be swapped out dependent on what 
+  			// url path ther user is on
+  			// Maps to nested routes in config/routes under Main handler
+			<div className="main-container">
+        		<nav className="navbar navbar-default" role="navigation">
+          			<div className="col-sm-7 col-sm-offset-2" style={{marginTop: 15}}>
+            			MENU
+          			</div>
+        		</nav>
+        		<div className="container">
+          			<RouteHandler />
+    			</div>
+      		</div>
 		)
 	}
 });
 
-// Where to render UI to
-React.render(<Main />, document.getElementById('app'));
+module.exports = Main;
