@@ -6,9 +6,7 @@ var SearchGithub = React.createClass({
 	handleSubmit: function(){
 		var username = this.refs.username.getDOMNode().value;
 		this.refs.username.getDOMNode().value = '';
-		// transition to the route with name="profile" [in ./config/routes]
-		// passing in the username as the url param to navigate to
-		this.transitionTo('profile', {username});
+		this.transitionTo('profile', {username: username});
 	},
 	render: function () {
 		return (

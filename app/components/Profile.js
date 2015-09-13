@@ -5,15 +5,29 @@ var Repos = require('./Github/Repos');
 var Notes = require('./Notes/Notes');
 var ReactFireMixin = require('reactfire');
 var Firebase = require('firebase');
+var helpers = require('../utils/helpers');
 
 var Profile = React.createClass({
 	mixins: [Router.State, ReactFireMixin],
 	getInitialState: function(){
 		return {
 			notes: [],
-			bio: { name: 'Leanne' },
-			repos: [1,2,3]
+			bio: {},
+			repos: []
 		}
+	},
+	init: function () {
+		var childRef = this.ref.child(this.getParams().username);
+    	this.bindAsArray(childRef, 'notes');
+		// Make http request to Github API for data; Axios uses promise.all and returns 
+    	// a promise
+    	helpers.getGithubInfo(this.getParams().username)
+			.then(function(dataObj){
+				this.setState({
+					bio: dataObj.bio,
+					repos: dataObj.repos,
+				});
+			}.bind(this));
 	},
 	// When the component mounts this callback is called
 	componentDidMount: function(){
@@ -22,8 +36,11 @@ var Profile = React.createClass({
 		// When database updates so will the local state of notes
 		// because notes is listening for updates from childRef
 		this.ref = new Firebase('https://leanne1-react-note.firebaseio.com');
-    	var childRef = this.ref.child(this.getParams().username);
-    	this.bindAsArray(childRef, 'notes');
+		this.init();
+	},
+	componentWillReceiveProps: function() {
+		this.unbind('notes');
+		this.init();
 	},
 	// When the component unmounts this callback is called
 	componentWillUnmount: function(){
