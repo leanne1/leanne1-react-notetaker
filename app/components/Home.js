@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
-var Home = React.createClass({
-	render: function(){
+class Home extends React.Component {
+	render(){
 		return (
 			// className because class is a reserved word in ES
 			<h2 className="text-center">
@@ -9,6 +9,6 @@ var Home = React.createClass({
 			</h2>	
 		)
 	}
-});
+};
 
-module.exports = Home;
+export default  Home;

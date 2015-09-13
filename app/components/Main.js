@@ -1,6 +1,7 @@
-var React = require('react'); // webpack?
-var RouteHandler = require('react-router').RouteHandler;
-var SearchGithub = require('./SearchGithub');
+import React from 'react';
+import { RouteHandler } from 'react-router';
+import SearchGithub from './SearchGithub';
+
 /* 
 Ceates a React component
 Takes several properties:
@@ -11,8 +12,8 @@ Takes several properties:
 // Main is a parent component that structures the whole page
 // It can have nested views that are rendered depending on the url path navigated to
 
-var Main = React.createClass({
-    render: function(){
+class Main extends React.Component {
+    render(){
         return (
             // can only return one element
             // but can nest other react components e.g. <Children />
@@ -29,11 +30,11 @@ var Main = React.createClass({
                     </div>
                 </nav>
                 <div className="container">
-                    <RouteHandler />
+                    <RouteHandler {...this.props} />
                 </div>
             </div>
         )
     }
-});
+};
 
-module.exports = Main;
+export default Main;

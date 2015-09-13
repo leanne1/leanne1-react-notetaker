@@ -1,10 +1,10 @@
-var React = require('react');
+import React from 'react';
 
-var NotesList = React.createClass({
-	render: function(){
+class NotesList extends React.Component {
+	render(){
 		// we pass an array to render and it automcatically
 		// loops over each. We don't need any forEach expression.
-		var notes = this.props.notes.map(function(note, index){
+		var notes = this.props.notes.map((note, index) => {
 			return <li className="list-group-item" key={index}>{note}</li>
 		});
 		return (
@@ -13,6 +13,6 @@ var NotesList = React.createClass({
 			</ul>
 		);
 	}
-});
+}
 
-module.exports = NotesList;
+export default NotesList;
