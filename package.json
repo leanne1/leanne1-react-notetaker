@@ -1,7 +1,7 @@
 {
   "name": "react-notetaker",
   "version": "0.0.0",
-  "description": "Persistent browser notes with Guthub user API integration built with React",
+  "description": "Persistent browser notes with Github user API integration built with React",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
